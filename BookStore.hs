@@ -19,3 +19,5 @@ data Customer = Customer {
 
 -- data Maybe a = Just a
 --                | Nothing
+bookInfoAreSame (Book a _ _) (Book b _ _) | a == b = Just a
+bookInfoAreSame a b = Nothing
