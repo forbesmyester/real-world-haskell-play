@@ -146,3 +146,11 @@ myWordsR str = foldr step [] str
 myUnlines :: [String] -> String
 myUnlines xs = foldl step [] xs
     where step acc x = acc ++ x ++ "\n"
+
+asSuffixes :: [a] -> [[a]]
+asSuffixes xs@(_:xs') = xs : asSuffixes xs'
+asSuffixes _ = []
+
+suffixes :: [a] -> [[a]]
+suffixes (x:xs) = (x:xs) : suffixes xs
+suffixes _ = []
