@@ -1,4 +1,7 @@
 import qualified Data.Map as Map
+import qualified Data.Foldable as Fld
+import Data.Monoid
+import Prelude
 
 data Point = Point Float Float deriving (Show)
 data Shape =
@@ -41,6 +44,13 @@ treeFind v (Node a left right)
 
 buildTree :: (Ord a) => [a] -> Tree a
 buildTree nums = foldl (\ acc v -> treeInsert v acc) EmptyTree nums
+
+-- From chapter 11
+instance Fld.Foldable Tree where
+        foldMap _ EmptyTree = mempty
+        foldMap f (Node x l r) = Fld.foldMap f l `mappend`
+                                 f x `mappend`
+                                 Fld.foldMap f r
 
 data TrafficLight = Red | Yellow | Green
 instance Eq TrafficLight where
