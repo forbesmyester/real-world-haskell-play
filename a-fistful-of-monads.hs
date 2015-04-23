@@ -1,3 +1,5 @@
+import Control.Monad
+
 applyMaybe :: Maybe a -> (a -> Maybe b) -> Maybe b
 applyMaybe Nothing _  = Nothing
 applyMaybe (Just x) f = f x
@@ -34,3 +36,16 @@ rightLand3 num (leftPole, rightPole)
         | abs ((rightPole + num) - leftPole) < 4 = Right (leftPole, rightPole + num)
         | otherwise = Left "Too many birds on the right side"
 -- return (2,2) >>= leftLand3 5
+
+
+sevensOnly :: [Int]  
+sevensOnly = do  
+    x <- [1..50]  
+    guard ('7' `elem` show x)  
+    return x  
+
+sevensOnly2 :: [Int] -> [Int]  
+sevensOnly2 xs = do  
+    x <- xs
+    guard ('7' `elem` show x)  
+    return x  
