@@ -256,3 +256,242 @@ encode zs = map (\(x:xs) -> (length xs + 1, x)) $ pack zs
 
 -- [[Category:Tutorials]]
 
+
+-- __NOTOC__
+
+-- This is part of [[H-99:_Ninety-Nine_Haskell_Problems|Ninety-Nine Haskell Problems]], based on [https://prof.ti.bfh.ch/hew1/informatik3/prolog/p-99/ Ninety-Nine Prolog Problems] and [http://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html Ninety-Nine Lisp Problems].
+ 
+-- == Problem 11 ==
+
+-- (*) Modified run-length encoding.
+
+-- Modify the result of problem 10 in such a way that if an element has no duplicates it is simply copied into the result list. Only elements with duplicates are transferred as (N E) lists.
+
+-- Example:
+
+-- <pre>
+-- * (encode-modified '(a a a a b c c a a d e e e e))
+-- ((4 A) B (2 C) (2 A) D (4 E))
+-- </pre>
+
+-- Example in Haskell:
+
+-- <haskell>
+-- P11> encodeModified "aaaabccaadeeee"
+-- [Multiple 4 'a',Single 'b',Multiple 2 'c',
+--  Multiple 2 'a',Single 'd',Multiple 4 'e']
+-- </haskell>
+
+-- [[99 questions/Solutions/11 | Solutions]]
+
+-- == Problem 12 ==
+
+-- (**) Decode a run-length encoded list.
+
+-- Given a run-length code list generated as specified in problem 11. Construct its uncompressed version.
+
+-- Example in Haskell:
+
+-- <haskell>
+-- P12> decodeModified 
+--        [Multiple 4 'a',Single 'b',Multiple 2 'c',
+--         Multiple 2 'a',Single 'd',Multiple 4 'e']
+-- "aaaabccaadeeee"
+-- </haskell>
+
+-- [[99 questions/Solutions/12 | Solutions]]
+
+-- == Problem 13 ==
+
+-- (**) Run-length encoding of a list (direct solution). 
+
+-- Implement the so-called run-length encoding data compression method directly. I.e. don't explicitly create the sublists containing the duplicates, as in problem 9, but only count them. As in problem P11, simplify the result list by replacing the singleton lists (1 X) by X.
+
+-- Example:
+
+-- <pre>
+-- * (encode-direct '(a a a a b c c a a d e e e e))
+-- ((4 A) B (2 C) (2 A) D (4 E))
+-- </pre>
+
+-- Example in Haskell:
+
+-- <haskell>
+-- P13> encodeDirect "aaaabccaadeeee"
+-- [Multiple 4 'a',Single 'b',Multiple 2 'c',
+--  Multiple 2 'a',Single 'd',Multiple 4 'e']
+-- </haskell>
+
+-- [[99 questions/Solutions/13 | Solutions]]
+
+-- == Problem 14 ==
+
+-- (*) Duplicate the elements of a list.
+
+-- Example:
+
+-- <pre>
+-- * (dupli '(a b c c d))
+-- (A A B B C C C C D D)
+-- </pre>
+
+-- Example in Haskell:
+
+-- <haskell>
+-- > dupli [1, 2, 3]
+-- [1,1,2,2,3,3]
+-- </haskell>
+
+-- [[99 questions/Solutions/14 | Solutions]]
+
+
+-- == Problem 15 ==
+
+-- (**) Replicate the elements of a list a given number of times.
+
+-- Example:
+
+-- <pre>
+-- * (repli '(a b c) 3)
+-- (A A A B B B C C C)
+-- </pre>
+
+-- Example in Haskell:
+
+-- <haskell>
+-- > repli "abc" 3
+-- "aaabbbccc"
+-- </haskell>
+
+-- [[99 questions/Solutions/15 | Solutions]]
+
+
+-- == Problem 16 ==
+
+-- (**) Drop every N'th element from a list.
+
+-- Example:
+
+-- <pre>
+-- * (drop '(a b c d e f g h i k) 3)
+-- (A B D E G H K)
+-- </pre>
+
+-- Example in Haskell:
+
+-- <haskell>
+-- *Main> dropEvery "abcdefghik" 3
+-- "abdeghk"
+-- </haskell>
+
+-- [[99 questions/Solutions/16 | Solutions]]
+
+        
+-- == Problem 17 ==
+
+-- (*) Split a list into two parts; the length of the first part is given.
+
+-- Do not use any predefined predicates.
+
+-- Example:
+
+-- <pre>
+-- * (split '(a b c d e f g h i k) 3)
+-- ( (A B C) (D E F G H I K))
+-- </pre>
+
+-- Example in Haskell:
+
+-- <haskell>
+-- *Main> split "abcdefghik" 3
+-- ("abc", "defghik")
+-- </haskell>
+
+-- [[99 questions/Solutions/17 | Solutions]]
+
+
+-- == Problem 18 ==
+
+-- (**) Extract a slice from a list.
+
+-- Given two indices, i and k, the slice is the list containing the elements between the i'th and k'th element of the original list (both limits included). Start counting the elements with 1.
+
+-- Example:
+
+-- <pre>
+-- * (slice '(a b c d e f g h i k) 3 7)
+-- (C D E F G)
+-- </pre>
+
+-- Example in Haskell:
+
+-- <haskell>
+-- *Main> slice ['a','b','c','d','e','f','g','h','i','k'] 3 7
+-- "cdefg"
+-- </haskell>
+
+-- [[99 questions/Solutions/18 | Solutions]]
+
+
+-- == Problem 19 ==
+
+-- (**) Rotate a list N places to the left.
+
+-- Hint: Use the predefined functions length and (++).
+
+-- Examples:
+
+-- <pre>
+-- * (rotate '(a b c d e f g h) 3)
+-- (D E F G H A B C)
+
+-- * (rotate '(a b c d e f g h) -2)
+-- (G H A B C D E F)
+-- </pre>
+
+-- Examples in Haskell:
+
+-- <haskell>
+-- *Main> rotate ['a','b','c','d','e','f','g','h'] 3
+-- "defghabc"
+
+-- *Main> rotate ['a','b','c','d','e','f','g','h'] (-2)
+-- "ghabcdef"
+-- </haskell>
+
+-- [[99 questions/Solutions/19 | Solutions]]
+
+       
+-- == Problem 20 ==
+
+-- (*) Remove the K'th element from a list.
+
+-- Example in Prolog:
+
+-- <pre>
+-- ?- remove_at(X,[a,b,c,d],2,R).
+-- X = b
+-- R = [a,c,d]
+-- </pre>
+
+-- Example in Lisp:
+
+-- <pre>
+-- * (remove-at '(a b c d) 2)
+-- (A C D)
+-- </pre>
+
+-- (Note that this only returns the residue list, while the Prolog version also returns the deleted element.)
+
+-- Example in Haskell:
+
+-- <haskell>
+-- *Main> removeAt 2 "abcd"
+-- ('b',"acd")
+-- </haskell>
+
+-- [[99 questions/Solutions/20 | Solutions]]
+
+
+-- [[Category:Tutorials]]
+
