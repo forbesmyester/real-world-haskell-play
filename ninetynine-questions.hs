@@ -1,4 +1,5 @@
 -- __NOTOC__
+import Data.List
 
 -- This is part of [[H-99:_Ninety-Nine_Haskell_Problems|Ninety-Nine Haskell Problems]], based on [https://sites.google.com/site/prologsite/prolog-problems  Ninety-Nine Prolog Problems] and [http://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html Ninety-Nine Lisp Problems].
 
@@ -115,6 +116,10 @@ myReverse [] = []
 -- Example in Haskell:
 
 -- <haskell>
+isPalindrome :: (Eq a) => [a] -> Bool
+isPalindrome xs = reverse xs == xs
+isPalindromeTest :: Bool
+isPalindromeTest = [isPalindrome [1,2,3,2,1], isPalindrome [1,2,2,1], isPalindrome "madamimadam", isPalindrome [1,2,3], isPalindrome [1,2,4,8,16,8,4,2,1]] == [True, True, True, False, True]
 -- *Main> isPalindrome [1,2,3]
 -- False
 -- *Main> isPalindrome "madamimadam"
@@ -147,6 +152,11 @@ myReverse [] = []
 -- </haskell>
 
 -- <haskell>
+data NestedList a = Elem a | List [NestedList a] deriving (Show, Eq)
+flatten :: NestedList b -> [b]
+flatten (Elem x) = [x]
+flatten (List (x:xs)) = flatten x ++ flatten (List xs)
+flatten (List []) = []
 -- *Main> flatten (Elem 5)
 -- [5]
 -- *Main> flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]])
@@ -175,6 +185,14 @@ myReverse [] = []
 -- Example in Haskell:
 
 -- <haskell>
+compressWorker :: (Eq a) => [a] -> a -> [a]
+compressWorker (y:ys) x = if x == y
+                          then y:ys
+                          else x:y:ys
+compressWorker [] x = [x]
+
+compress :: (Eq a) => [a] -> [a]
+compress a = reverse $ foldl compressWorker [] a
 -- > compress "aaaabccaadeeee"
 -- "abcade"
 -- </haskell>
@@ -200,6 +218,16 @@ myReverse [] = []
 --              'a', 'd', 'e', 'e', 'e', 'e']
 -- ["aaaa","b","cc","aa","d","eeee"]
 -- </haskell>
+
+pack' :: (Eq a) => [a] -> [[a]]
+pack' = group
+packWorker :: (Eq a) => [[a]] -> a -> [[a]]
+packWorker (x:xs) y
+    | y == head x = (y:x):xs
+    | otherwise = [y] : [x] ++ xs
+packWorker [] n = [[n]]
+pack :: (Eq a) => [a] -> [[a]]
+pack xs = foldl packWorker [] xs
 
 -- [[99 questions/Solutions/9 | Solutions]]
 
