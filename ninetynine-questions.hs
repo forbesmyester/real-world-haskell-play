@@ -227,7 +227,7 @@ packWorker (x:xs) y
     | otherwise = [y] : [x] ++ xs
 packWorker [] n = [[n]]
 pack :: (Eq a) => [a] -> [[a]]
-pack xs = foldl packWorker [] xs
+pack xs = reverse $ foldl packWorker [] xs
 
 -- [[99 questions/Solutions/9 | Solutions]]
 
@@ -244,6 +244,9 @@ pack xs = foldl packWorker [] xs
 
 -- Example in Haskell:
 -- <haskell>
+encode :: (Eq a) => [a] -> [(Int, a)]
+encode zs = map (\(x:xs) -> (length xs + 1, x)) $ pack zs
+
 -- encode "aaaabccaadeeee"
 -- [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
 -- </haskell>
