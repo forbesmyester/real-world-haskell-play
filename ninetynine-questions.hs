@@ -277,6 +277,9 @@ encode zs = map (\(x:xs) -> (length xs + 1, x)) $ pack zs
 -- Example in Haskell:
 
 -- <haskell>
+data MultipleChars m l = MultipleChars m l deriving (Show)
+encodeModified :: (Eq a) => [a] -> [MultipleChars m l]
+encodeModified xs = []
 -- P11> encodeModified "aaaabccaadeeee"
 -- [Multiple 4 'a',Single 'b',Multiple 2 'c',
 --  Multiple 2 'a',Single 'd',Multiple 4 'e']
